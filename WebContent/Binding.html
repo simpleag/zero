@@ -1,24 +1,29 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-<title>绑定</title>
-<link rel="stylesheet" href="./content/assets/css/weui.min.css">
-<link rel="stylesheet" href="./content/assets/css/default.css">
-
-<script type="text/javascript" src="./content/assets/js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="./content/assets/js/binding.js"></script>  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>绑定</title>
+    <link rel="stylesheet" href="./content/assets/css/weui.min.css">
+    <link rel="stylesheet" href="./content/assets/css/default.css">
 </head>
 
 <body touchstart>
+    <script type="text/javascript" src="./content/assets/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="./content/assets/js/layout.js"></script>
+    <script type="text/javascript" src="./content/assets/js/binding.js"></script>
+
     <div class="weui-toptips weui-toptips_warn js_tooltips" style="display: none;" id="warn">错误提示</div>
-    <div class="container" id="container">
+    
+    <div class="page" id="binding">
+
         <div class="page__hd">
             <h1 class="page__title">欢迎进行绑定</h1>
-            <!--<p class="page__desc">*****</p>-->
+            <p class="page__desc">完善您的信息与微信号进行绑定</p>
         </div>
+        
         <div class="page__bd">
+
             <div class="weui-cells__title">请认真填写以下信息，以保证认证顺利</div>
             <div class="weui-cells weui-cells_form">
                 <div class="weui-cell">
@@ -40,6 +45,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="weui-cells__title">请选择您的学校</div>
             <div class="weui-cells">
                 <div class="weui-cell weui-cell_select weui-cell_select-after">
@@ -69,22 +75,28 @@
                         </select>
                     </div>
                 </div>
-            </div>    
+            </div>
+
             <label for="weuiAgree" class="weui-agree">
                 <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">
                     <span class="weui-agree__text" >
                         阅读并同意<a href="javascript:void(0);">《相关条款》</a>
                     </span>
             </label>
+
         </div>
+
         <div class="page__ft">
             <div class="weui-btn-area">
                  <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips"  type="button">确定</a>
             </div>
-            <div class="weui-footer weui-footer_fixed-bottom">
-                <p class="weui-footer__text">Copyright © 2008-2016 weui.io</p>
-            </div>
         </div>
+
     </div>
+
+    <div class="weui-footer weui-footer_fixed-bottom">
+        <p class="weui-footer__text">Copyright © 2008-2016 weui.io</p>
+    </div>
+    
 </body>
 </html>

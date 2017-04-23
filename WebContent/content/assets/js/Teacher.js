@@ -31,7 +31,12 @@ function getTeacherInfo(JSONObject){
     teacher.classes = JSONObject.classes;
     teacher.mobile = JSONObject.mobile;
     teacher.email = JSONObject.email;
-    initPage();
+    if(teacher.openid==null || teacher.name==null) goErrorPage();
+    else initPage();
+}
+
+function goErrorPage(){
+    window.location.href="./state.html?state=1&info=1";
 }
 
 function initPage(){

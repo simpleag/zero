@@ -1,6 +1,13 @@
 $(document).ready(function(){
     getState();
 });
+
+function createNewPage(){
+    $(".page").css({
+        "height" : $(window).height()-39+"px"
+    });
+}
+
 function getUrlParam(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var r = window.location.search.substr(1).match(reg);
@@ -26,6 +33,7 @@ function initPage(state,info){
     }
     var source = html.replace(reg, function (node, key) { return { 'info': info}[key]; });
     $(document.body).append(source);
+    createNewPage();
     btn_ok();
 }
 function btn_ok(){
@@ -33,4 +41,3 @@ function btn_ok(){
         window.close();
     });
 }
-

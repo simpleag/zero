@@ -56,6 +56,7 @@ function loadTeacherPage(data,openid){
         var html = document.getElementById("teacherPage").innerHTML;
         var source = html.replace(reg, function (node, key) { return {}[key]; });
         $("#loading").remove();
+        $("title").text(teacher.name);
         $(document.body).append(source);
         createNewPage();
         initPage()

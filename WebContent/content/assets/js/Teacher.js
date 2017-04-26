@@ -28,9 +28,14 @@ function getJSONObject(){
     if(openid==null || openid=="") goErrorPage();
     else{
         $.ajax({
-                url: "./content/assets/json/test_teacher.json",
-                type: "GET",
-                dataType: "JSON",
+                url: "teacherTest.do",
+                type: "POST",
+                dataType: "json",
+				data: {
+					"a": "abc",
+					"b": 2,
+					"c": 3
+				},
                 success: function(data) {
                                 if((openid in data) == false) goErrorPage();
                                 loadTeacherPage(data,openid);

@@ -4,21 +4,37 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>教师</title>
+    <title></title>
     <link rel="stylesheet" href="./content/assets/css/weui.min.css">
     <link rel="stylesheet" href="./content/assets/css/default.css">
 </head>
 <body touchstart>
 
-    <script type="text/javascript" src="./content/assets/js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="./content/assets/js/layout.js"></script>
-    <script type="text/javascript" src="./content/assets/js/teacher.js"></script>
+    <div class="page" id="loading">
+        <div class="page__hd">
+            <center><h1 class="page__title">Loading...</h1></center>
+        </div>
+    </div>
 
+    <div class="weui-footer weui-footer_fixed-bottom">
+        <p class="weui-footer__text">Copyright © 2008-2016 weui.io</p>
+    </div>
+
+</body>
+
+<script type="text/javascript" src="./content/assets/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="./content/assets/js/layout.js"></script>
+<script type="text/javascript" src="./content/assets/js/teacher.js"></script>
+
+<script type="text/html" id="classCell">
+    <div class="weui-cell"><div class="weui-cell__bd"><label class="weui-label-in">[className]</label></div></div>
+</script>
+<script type="text/html" id="teacherPage">
     <div class="page" id="teacher">
 
         <div class="page__hd">
             <h1 class="page__title">匿名</h1>
-            <p class="page__desc">未知</p>
+            <p class="page__desc" onclick="switchAllTeacherInfo()">未知</p>
         </div>
 
         <div class="page__bd">
@@ -47,15 +63,6 @@
         </div>
 
     </div>
-
-    <div class="weui-footer weui-footer_fixed-bottom">
-        <p class="weui-footer__text">Copyright © 2008-2016 weui.io</p>
-    </div>
-
-</body>
-
-<script type="text/html" id="classCell">
-    <div class="weui-cell"><div class="weui-cell__bd"><label class="weui-label-in">[className]</label></div></div>
 </script>
 
 </html>

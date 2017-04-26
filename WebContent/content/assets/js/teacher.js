@@ -22,14 +22,15 @@ function getUrlParam(name) {
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]); return null;
 }
-// 获取数据
+// 获取数据，目前是获取本地json中的测试数据。实际使用时，先确保传递的数据data中的openid是否正确，将type改为post，修改url即可。
 function getJSONObject(){
     var openid = getUrlParam("openid");
     if(openid==null || openid=="") goErrorPage();
     else{
         $.ajax({
                 url: "./content/assets/json/test_teacher.json",
-                type: "GET",
+                type: "get",
+                data: openid,
                 dataType: "JSON",
                 success: function(data) {
                                 if((openid in data) == false) goErrorPage();

@@ -70,8 +70,8 @@ function initPage(){
     $("#teacher .page__hd .page__title").text(teacher.name);
     // 教师介绍
     if(teacher.info!=null&&teacher.info.length>0){
-        if(teacher.info.length>102)
-            $("#teacher .page__hd .page__desc").text(teacher.info.slice(0,102)+"...");
+        if(teacher.info.length>50)
+            $("#teacher .page__hd .page__desc").text(teacher.info.slice(0,51)+"...");
         else $("#teacher .page__hd .page__desc").text(teacher.info);
     }
     // 教授课程
@@ -95,12 +95,12 @@ function goErrorPage(){
 }
 // 切换显示全部教师介绍
 function switchAllTeacherInfo(){
-    if(teacher.info.length>100){
+    if(teacher.info.length>50){
         if($("#teacher .page__hd .page__desc").text()!=teacher.info){
             $("#teacher .page__hd .page__desc").text(teacher.info);
         }
         else{
-            $("#teacher .page__hd .page__desc").text(teacher.info.slice(0,102)+"...");
+            $("#teacher .page__hd .page__desc").text(teacher.info.slice(0,51)+"...");
         }
     }
 }

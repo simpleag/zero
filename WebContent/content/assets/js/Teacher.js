@@ -68,9 +68,10 @@ function initPage(){
     // 教师姓名
     $("#teacher .page__hd .page__title").text(teacher.name);
     // 教师介绍
-    if(teacher.info!=null){
-        // $("#teacher .page__hd .page__desc").text(teacher.info);
-        $("#teacher .page__hd .page__desc").text(teacher.info.slice(0,102)+"...");
+    if(teacher.info!=null&&teacher.info.length>0){
+        if(teacher.info.length>102)
+            $("#teacher .page__hd .page__desc").text(teacher.info.slice(0,102)+"...");
+        else $("#teacher .page__hd .page__desc").text(teacher.info);
     }
     // 教授课程
     if(teacher.classes.length>0) $(".page .page__bd #noClass").css("display","none");

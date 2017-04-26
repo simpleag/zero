@@ -6,7 +6,7 @@ div {
 	display: block;
 }
 .page {
-	overflow-y: scroll;
+	overflow-y: auto;
 	background-color: #f8f8f8;
 }
 .page__hd {

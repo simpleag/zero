@@ -40,7 +40,7 @@ function loadTeacherListPage(data){
         $("#loading").remove();
         $(document.body).append(source);
         createNewPage();
-        initPage(data)
+        initPage(data);
     }
 }
 // 初始化页面

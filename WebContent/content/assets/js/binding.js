@@ -7,7 +7,7 @@ function createNewPage(){
 }
 
 $(document).ready(function(){
-    getOpenid();
+    getUrlData();
 });
 
 // 获取url中参数
@@ -16,17 +16,17 @@ function getUrlParam(name) {
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]); return null;
 }
-// 获取数据
-function getOpenid(){
+// 获取url中数据
+function getUrlData(){
     var openid = getUrlParam("openid");
     if(openid==null || openid=="") goErrorPage();
     else{
-        loadBinding(openid);
+        loadBindingPage(openid);
     }
 }
-function loadBinding(openid){
+function loadBindingPage(openid){
     var html = document.getElementById("bindingPage").innerHTML;
-    var source = html.replace(reg, function (node, key) { return {"openID":openid}[key]; });
+    var source = html.replace(reg, function (node, key) { return {}[key]; });
     $("#loading").remove();
     $(document.body).append(source);
     createNewPage();
@@ -70,8 +70,8 @@ function initSchoolItem(){
     }
     function loadCity(province){
         $("#select-city").children().remove();
-        $("#select-city").append("<option>" +' '+"</option>");
-        if(province!=" "){
+        $("#select-city").append("<option>" +''+"</option>");
+        if(province!=""){
             for(var city in schoolList[province]){
                 $("#select-city").append("<option>" +city+"</option>");
             }
@@ -79,8 +79,8 @@ function initSchoolItem(){
     }
     function loadSchool(province,city){
         $("#select-school").children().remove();
-        $("#select-school").append("<option>" +' '+"</option>");
-        if(city != " "){
+        $("#select-school").append("<option>" +''+"</option>");
+        if(city != "" && province != ""){
             for(var i in schoolList[province][city]){
                 var school = schoolList[province][city][i];
                 $("#select-school").append("<option>" +school+"</option>");
@@ -132,26 +132,22 @@ function btn_submit_click(){
     }
 }
 // 提交表单
+// 修改url
 function formSubmit(){
     var openid = getUrlParam("openid");
-    var name = $("#name").text();
-    var sid = $("#number").text();
-    var school = null;
-    if(openid == null) alert("");
-    else if(name == null) alert("name");
-    else if(sid == null) alert("sid");
-    else{
-        $.ajax({
-                url: "",
-                type: "post",
-                data:"openid="+openid+"&name="+name+"&sid="+sid+"&school="+school,
-                dataType: "JSON",
-                success: function(data) {
-                                screenSchoolList(data);
-                            },
-                error: function() {alert("error");}
-            });
-    }
+    var name = $("#name").val();
+    var number = $("#number").val();
+    var school = $("#select-school").find("option:selected").text();
+    $.ajax({
+            url: "",
+            type: "post",
+            data:"openid="+openid+"&name="+name+"&number="+number+"&school="+school,
+            dataType: "JSON",
+            success: function(data) {
+                            goErrorPage();  //此处状态为成功，并非异常状态，具体内容待完善。 
+                        },
+            error: function() {alert("error");}
+        });
 }
 // 异常信息提示
 function showWarnInfo(e,info){

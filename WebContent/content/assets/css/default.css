@@ -43,3 +43,10 @@ div {
     word-wrap: break-word;
     word-break: break-all;
 }
+.noBox {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+.input-data__hide {
+	display: none;
+}

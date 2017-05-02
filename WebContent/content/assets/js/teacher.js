@@ -24,7 +24,7 @@ function getUrlParam(name) {
     if (r != null) return unescape(r[2]); return null;
 }
 // 获取数据，目前是获取本地json中的测试数据。
-// 修改url，datatype改为post
+// 修改url，type改为post
 // data是发送的数据，格式和url后参数一样，例如："a=[]&b=[]"
 // success中去掉if语句（本地json数据不止一组），之后修改为loadTeacherPage(data)即可;
 // 预设获取的数据类型，不需要考虑数据类型，都为字符串

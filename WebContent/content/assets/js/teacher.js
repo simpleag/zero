@@ -45,24 +45,14 @@ function getUrlData(){
     else if(teacherid==null || teacherid=="") goErrorPage();
     else{
         $.ajax({
-<<<<<<< HEAD:WebContent/content/assets/js/Teacher.js
-                url: "teacherTest.do",
-                type: "POST",
-                dataType: "json",
-				data: {
-					"a": "abc",
-					"b": 2,
-					"c": 3
-				},
-=======
-                url: "./content/assets/json/test_teacher.json",
-                type: "get",
-                data: "teacherid="+teacherid,
+                url: "findteacher.do",
+                type: "post",
+                data: {
+                	"useId": teacherid
+                	},
                 dataType: "JSON",
->>>>>>> refs/remotes/lalalaleo/develop:WebContent/content/assets/js/teacher.js
                 success: function(data) {
-                                if((teacherid in data) == false) goErrorPage();
-                                loadTeacherPage(data[teacherid]);
+                                loadTeacherPage(data);
                             },
                 error: function() {alert("error");}
             });

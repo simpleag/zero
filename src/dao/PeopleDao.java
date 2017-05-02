@@ -64,4 +64,16 @@ public class PeopleDao {
 			throw new Exception(ex);
 		}
 	}
+	
+	public People find(People people) throws Exception{
+		try {
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			People peopleFind = (People) session.get(People.class, people.getUseId());  
+			session.getTransaction().commit();
+			return peopleFind;
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
+	}
 }

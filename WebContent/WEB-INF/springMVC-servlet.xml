@@ -15,6 +15,7 @@
   
     <!-- 自动扫描的包名 -->  
     <context:component-scan base-package="servlet"/>  
+    <context:component-scan base-package="weservlet"/> 
   
     <!-- 默认的注解映射的支持，自动注册DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter -->  
     <mvc:annotation-driven />  

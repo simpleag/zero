@@ -6,7 +6,7 @@ function createNewPage(){
 }
 
 $(document).ready(function(){
-    getUrldata();
+    getUrlData();
 });
 
 // 获取url中参数
@@ -16,15 +16,33 @@ function getUrlParam(name) {
     if (r != null) return unescape(r[2]); return null;
 }
 // 获取URL中的数据，获取课程数据
-function getUrldata(){
+// 修改url
+// 修改type为post
+// 预期的数据为：
+/*
+    {
+        "class_id" : "课程id",
+        "class_name" : "课程名字",
+        "class_info" : "课程介绍",
+        "teacher_id" : "教师openid",
+        "teacher_name" : "教师姓名",
+        "count":"16周",
+        "time":"周一 9:00-11:25"
+    }
+*/
+// 这页有个错误，不知道是本地json的错误还是获取代码不合法
+// 数据获取正常，但错误代码大致为 Cannot read property 'class_name' of undefined
+// 帮忙测试获取服务器数据后，该报错是否还存在
+function getUrlData(){
     var openid = getUrlParam("openid");
-    var classid = getUrlParam("claid");
-    if((openid == null) || (openid == "") || (classid == null) || (classid == "")) goErrorPage();
+    var classid = getUrlParam("classid");
+    if((openid == null) || (openid == "")) goErrorPage();
+    else if((classid == null) || (classid == "")) goErrorPage();
     else{
         $.ajax({
             url: "./content/assets/json/test_class.json",
                 type: "get",
-                data: openid,
+                data: "openid="+openid+"classid="+classid,
                 dataType: "JSON",
                 success: function(data) {
                                 loadClassPage(data);
@@ -45,7 +63,8 @@ function loadClassPage(data){
 }
 // 初始化Page
 function initPage(){
-    $("#teacher").attr("href","./teacher.html?openid="+$("#teacherID").val());
+    var openid=getUrlParam("openid");
+    $("#teacher").attr("href","./teacher.html?openid="+openid+"&teacherid="+$("#teacherID").val());
 }
 // 跳转至error页
 function goErrorPage(){

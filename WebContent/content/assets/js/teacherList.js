@@ -37,9 +37,11 @@ function getUrlData(){
     if(openid==null || openid=="") goErrorPage();
     else{
         $.ajax({
-                url: "./content/assets/json/test_teacherList.json",
-                type: "get",
-                data: "openid="+openid,
+                url: "listhavetea.do",
+                type: "post",
+                data: {
+                	"openId": openid
+                	},
                 dataType: "JSON",
                 success: function(data) {
                                 loadTeacherListPage(data);

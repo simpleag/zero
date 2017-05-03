@@ -48,7 +48,7 @@ function getUrlData(){
                 url: "findteacher.do",
                 type: "post",
                 data: {
-                	"useId": teacherid
+                	"openId": teacherid
                 	},
                 dataType: "JSON",
                 success: function(data) {

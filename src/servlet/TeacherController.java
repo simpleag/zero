@@ -1,7 +1,9 @@
 package servlet;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,19 +22,25 @@ import dao.*;
 public class TeacherController {
 	@RequestMapping(value = "findteacher", method = RequestMethod.POST)
 	public void FindTeacher (People people, HttpServletRequest request, HttpServletResponse response){
-		PeopleDao dao = new PeopleDao();
+		PeopleDao peoDao = new PeopleDao();
+		SubjectDao subDao = new SubjectDao();
 		PrintWriter printWriter = null;
 		
 		try {
-			People findpeople = dao.find(people);
-			if(findpeople != null){
+			People peopleFind = peoDao.findByOpenId(people);
+			List<Subject> subjectList = subDao.listByTeaId(peopleFind.getUseId());
+			List<String> subNameList = new ArrayList<String>();
+			if(peopleFind != null && subjectList != null){
+				for(int i = 0; i < subjectList.size(); i++){
+					subNameList.add(subjectList.get(i).getSubName());
+				}
 				Map<String, Object> mapResult = new HashMap<String, Object>();
-				mapResult.put("openid", findpeople.getOpenId());
-				mapResult.put("name", findpeople.getUseName());
-				mapResult.put("info", "123");
-				mapResult.put("classes", "123");
-				mapResult.put("mobile", "123");
-				mapResult.put("email", "123");
+				mapResult.put("openid", peopleFind.getOpenId());
+				mapResult.put("name", peopleFind.getUseName());
+				mapResult.put("info", "ȱʧ");
+				mapResult.put("classes", subNameList);
+				mapResult.put("mobile", "ȱʧ");
+				mapResult.put("email", "ȱʧ");
 				String jsonResult = JSON.toJSONString(mapResult);
 				printWriter = response.getWriter();
 				printWriter.print(jsonResult);

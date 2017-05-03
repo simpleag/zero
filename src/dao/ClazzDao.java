@@ -1,6 +1,6 @@
 package dao;
 
-import java.util.Iterator;
+import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -51,15 +51,27 @@ public class ClazzDao {
 		}
 	}
 	
-	public Iterator<Clazz> list() throws Exception{
+	public List<Clazz> list() throws Exception{
 		try {
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
 			String hql = "from Clazz";  
 	        Query query = session.createQuery(hql);  
-	        Iterator<Clazz> clazzList = query.iterate();
+	        List<Clazz> clazzList = query.list();
 			session.getTransaction().commit();
 			return clazzList;
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
+	}
+	
+	public Clazz find (Clazz clazz) throws Exception{
+		try {
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			Clazz clazzFind = (Clazz) session.get(Clazz.class, clazz.getClaId());
+			session.getTransaction().commit();
+			return clazzFind;
 		} catch (Exception ex) {
 			throw new Exception(ex);
 		}

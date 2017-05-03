@@ -40,9 +40,11 @@ function getUrlData(){
     else if((classid == null) || (classid == "")) goErrorPage();
     else{
         $.ajax({
-            url: "./content/assets/json/test_class.json",
-                type: "get",
-                data: "openid="+openid+"classid="+classid,
+            url: "findclazz.do",
+                type: "post",
+                data: {
+                	"claId": classid
+                	},
                 dataType: "JSON",
                 success: function(data) {
                                 loadClassPage(data);

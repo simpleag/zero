@@ -45,13 +45,14 @@ function getUrlData(){
     else if(teacherid==null || teacherid=="") goErrorPage();
     else{
         $.ajax({
-                url: "./content/assets/json/test_teacher.json",
-                type: "get",
-                data: "teacherid="+teacherid,
+                url: "findteacher.do",
+                type: "post",
+                data: {
+                	"useId": teacherid
+                	},
                 dataType: "JSON",
                 success: function(data) {
-                                if((teacherid in data) == false) goErrorPage();
-                                loadTeacherPage(data[teacherid]);
+                                loadTeacherPage(data);
                             },
                 error: function() {alert("error");}
             });

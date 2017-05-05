@@ -50,3 +50,10 @@ div {
 .input-data__hide {
 	display: none;
 }
+.now-class {
+	background-color:#1AAD19;
+	color:#FFFFFF;
+}
+.now-class p {
+	color:#FFFFFF;
+}

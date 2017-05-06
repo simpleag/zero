@@ -9,85 +9,9 @@
 </head>
 <body touchstart>
     <!--Loading状态-->
-    <!--<div class="page" id="loading">
+    <div class="page" id="loading">
         <div class="page__hd">
             <center><h1 class="page__title">Loading...</h1></center>
-        </div>
-    </div>-->
-
-    <div class="page" id="schoolTimetable
-        <div class="page__bd">
-            <div class="weui-tab">
-                <div class="weui-navbar">
-                    <div class="weui-navbar__item weui-bar__item_on">今天</div>
-                    <div class="weui-navbar__item">本周</div>
-                </div>
-                <div class="weui-tab__panel" id="today">
-                    <div class="weui-panel"></div>
-                    <div class="weui-panel">
-                        <div class="weui-panel__bd">
-                            <div class="weui-media-box weui-media-box_text now-class">
-                                <h4 class="weui-media-box__title">马克思主义哲学</h4>
-                                <p class="weui-media-box__desc">08：00—09：35</p>
-                            </div>
-                            <div class="weui-media-box weui-media-box_text">
-                                <h4 class="weui-media-box__title">毛泽东思想</h4>
-                                <p class="weui-media-box__desc">09：50—11：25</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="weui-tab__panel" id="week">
-                    <div class="weui-panel"></div>
-                    <div class="weui-panel">
-                        <div class="weui-panel__hd">周一</div>
-                        <div class="weui-panel__bd">
-                            <div class="weui-media-box weui-media-box_text" style="background:#1AAD19;color:white">
-                                <h4 class="weui-media-box__title">马克思主义哲学</h4>
-                                <p class="weui-media-box__desc" style="color:white">08：00—09：35</p>
-                            </div>
-                            <div class="weui-media-box weui-media-box_text">
-                                <h4 class="weui-media-box__title">毛泽东思想</h4>
-                                <p class="weui-media-box__desc">09：50—11：25</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="weui-panel">
-                        <div class="weui-panel__hd">周二</div>
-                        <div class="weui-panel__bd">
-                            <div class="weui-media-box weui-media-box_text">
-                                <h4 class="weui-media-box__title">Oracle</h4>
-                                <p class="weui-media-box__desc">08：00—09：35</p>
-                            </div>
-                            <div class="weui-media-box weui-media-box_text">
-                                <h4 class="weui-media-box__title">Android UI设计</h4>
-                                <p class="weui-media-box__desc">09：50—11：25</p>
-                            </div>
-                            <div class="weui-media-box weui-media-box_text">
-                                <h4 class="weui-media-box__title">计算机网络</h4>
-                                <p class="weui-media-box__desc">13：30—15：15</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="weui-panel">
-                        <div class="weui-panel__hd">周三</div>
-                        <div class="weui-panel__bd">
-                            <div class="weui-media-box weui-media-box_text">
-                                <h4 class="weui-media-box__title">人机交互</h4>
-                                <p class="weui-media-box__desc">08：00—09：35</p>
-                            </div>
-                            <div class="weui-media-box weui-media-box_text">
-                                <h4 class="weui-media-box__title">Android开发</h4>
-                                <p class="weui-media-box__desc">09：50—11：25</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
         </div>
     </div>
 
@@ -100,4 +24,50 @@
 <script type="text/javascript" src="./content/assets/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="./content/assets/js/layout.js"></script>
 <script type="text/javascript" src="./content/assets/js/schoolTimetable.js"></script>
+
+<script type="text/html" id="item_class">
+    <div class="weui-media-box weui-media-box_text">
+        <h4 class="weui-media-box__title">[className]</h4>
+        <p class="weui-media-box__desc">[classTime]</p>
+    </div>
+</script>
+
+<script type="text/html" id="item_week_class">
+    <div class="weui-panel" id=[weekid]>
+        <div class="weui-panel__hd">[week]</div>
+        <div class="weui-panel__bd">
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="item_today_class">
+    <div class="weui-panel">
+        <div class="weui-panel__bd">
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="schoolTimetablePage">
+    <div class="page" id="schoolTimetable">
+        <div class="page__bd">
+            <div class="weui-tab">
+                
+                <div class="weui-navbar">
+                    <div class="weui-navbar__item weui-bar__item_on" onclick="tabCilck(this)">今天</div>
+                    <div class="weui-navbar__item" onclick="tabCilck(this)">本周</div>
+                </div>
+
+                <div class="weui-tab__panel" id="tabPanelToday">
+                    <div class="weui-panel"></div>
+                </div>
+
+                <div class="weui-tab__panel" id="tabPanelWeek" style="display:none;padding-top:50px">
+                    <div class="weui-panel"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</script>
+
 </html>

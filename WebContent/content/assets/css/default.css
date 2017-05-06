@@ -57,3 +57,10 @@ div {
 .now-class p {
 	color:#FFFFFF;
 }
+.ago-class {
+	background: #F8F8F8;
+	color:#888;
+}
+.ago-class p {
+	color:#888;
+}

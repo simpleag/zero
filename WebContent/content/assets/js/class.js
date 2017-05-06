@@ -49,7 +49,6 @@ function getUrlData(){
                             },
                 error: function() {alert("error");}
         });
-        loadClassPage();
     }
 }
 // 加载ClassPage

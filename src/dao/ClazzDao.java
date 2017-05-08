@@ -76,4 +76,37 @@ public class ClazzDao {
 			throw new Exception(ex);
 		}
 	}
+	
+	public List clazzTable (String openId) throws Exception{
+		try {
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			String sql = "SELECT DISTINCT clazz.*, subject.* FROM clazz, subject "
+					+ "WHERE clazz.subId = subject.subId AND clazz.claId IN "
+					+ "(SELECT choice.claId FROM choice, people WHERE choice.useId = people.useId AND people.openId = ? ) ";  
+	        Query query = session.createSQLQuery(sql).addEntity("clazz", Clazz.class).addEntity("subject", Subject.class);
+	        query.setString(0, openId);
+	        List clazzList = query.list();
+			session.getTransaction().commit();
+			return clazzList;
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
+	}
+	
+	public List listByTea (String openId) throws Exception{
+		try {
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			String sql = "SELECT DISTINCT clazz.*, subject.* FROM clazz, subject, people "
+					+ "WHERE clazz.subId = subject.subId AND subject.subTeaId = people.useId AND people.openId = ? ";  
+	        Query query = session.createSQLQuery(sql).addEntity("clazz", Clazz.class).addEntity("subject", Subject.class);
+	        query.setString(0, openId);
+	        List clazzList = query.list();
+			session.getTransaction().commit();
+			return clazzList;
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
+	}
 }

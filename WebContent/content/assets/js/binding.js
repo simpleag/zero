@@ -139,9 +139,14 @@ function formSubmit(){
     var number = $("#number").val();
     var school = $("#select-school").find("option:selected").text();
     $.ajax({
-            url: "",
+            url: "isuser.do",
             type: "post",
-            data:"openid="+openid+"&name="+name+"&number="+number+"&school="+school,
+            data: {
+            	"openId": openid,
+            	"useName": name,
+            	"useNum": number,
+            	"useSchool": school
+            	},
             dataType: "JSON",
             success: function(data) {
                             goErrorPage();  //此处状态为成功，并非异常状态，具体内容待完善。 

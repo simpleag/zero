@@ -50,9 +50,12 @@ var classTools = {
             ]
         */
         $.ajax({
-            url: "./content/assets/json/test_message_classes.json",
-                type: "get",
-                data: "openid="+openid,
+            url: "sendfindclazz.do",
+                type: "post",
+                data: {
+                	"openId": openid
+                	},
+
                 dataType: "JSON",
                 success: function(data) {
                                 classTools.setList(data);
@@ -112,9 +115,11 @@ var studentTools = {
             ]
         */
         $.ajax({
-            url: "./content/assets/json/test_message_students.json",
-                type: "get",
-                data: "classid="+classid,
+            url: "sendfindstudent.do",
+                type: "post",
+                data: {
+                	"claId": classTools.checked
+                	},
                 dataType: "JSON",
                 success: function(data) {
                                 studentTools.setList(data);

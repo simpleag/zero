@@ -1,6 +1,6 @@
 package dao;
 
-import java.util.Iterator;
+import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -50,28 +50,102 @@ public class PeopleDao {
 			throw new Exception(ex);
 		}
 	}
-	
-	public Iterator<People> list() throws Exception{
+
+	public List<People> list() throws Exception{
 		try {
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
 			String hql = "from People";  
-	        Query query = session.createQuery(hql);  
-	        Iterator<People> peopleList = query.iterate();
+			Query query = session.createQuery(hql);  
+			List<People> peopleList = query.list();
 			session.getTransaction().commit();
 			return peopleList;
 		} catch (Exception ex) {
 			throw new Exception(ex);
 		}
 	}
-	
+
 	public People find(People people) throws Exception{
 		try {
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
-			People peopleFind = (People) session.get(People.class, people.getUseId());  
+			People peopleFind = (People) session.get(People.class, people.getUseId());
 			session.getTransaction().commit();
 			return peopleFind;
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
+	}
+
+	public People findByOpenId(People people) throws Exception{
+		try {
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			String hql = "from People where openId = ? ";
+			Query query = session.createQuery(hql); 
+			query.setString(0, people.getOpenId());
+			List<People> peopleList = query.list();
+			session.getTransaction().commit();
+			People peopleFind = peopleList.get(0);
+			return peopleFind;
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
+	}
+
+	public List<People> listHaveTea(String openId) throws Exception{
+		try {
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			String sql = "SELECT DISTINCT people.* FROM people, subject, clazz "
+					+ "WHERE people.useId = subject.subTeaId AND subject.subId = clazz.subId AND clazz.claId IN "
+					+ "(SELECT choice.claId FROM choice,people WHERE choice.useId = people.useId AND people.openId = ? ) ";  
+			Query query = session.createSQLQuery(sql).addEntity(People.class); 
+			query.setString(0, openId);
+			List<People> peopleList = query.list();
+			session.getTransaction().commit();
+			return peopleList;
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
+	}
+
+	public Boolean isUser(People people) throws Exception{
+		try {
+			Boolean result = false;
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			String sql = "SELECT DISTINCT people.* FROM people "
+					+ "WHERE people.useName = ? AND people.useSchool = ? AND people.useNum = ? AND people.openId = '' "; 
+			Query query = session.createSQLQuery(sql).addEntity(People.class); 
+			query.setString(0, people.getUseName());
+			query.setString(1, people.getUseSchool());
+			query.setString(2, people.getUseNum());
+			List<People> peopleList = query.list();
+			if(peopleList.size() == 1){
+				People peopleFind = peopleList.get(0);
+				peopleFind.setOpenId(people.getOpenId());
+				session.update(peopleFind);
+				result = true;
+			}
+			session.getTransaction().commit();
+			return result;
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
+	}
+	
+	public List<People> listByCla(String claId) throws Exception{
+		try {
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			String sql = "SELECT DISTINCT people.* FROM people, choice "
+					+ "WHERE people.useId = choice.useId AND choice.claId = ? ";
+			Query query = session.createSQLQuery(sql).addEntity(People.class); 
+			query.setString(0, claId);
+			List<People> peopleList = query.list();
+			session.getTransaction().commit();
+			return peopleList;
 		} catch (Exception ex) {
 			throw new Exception(ex);
 		}

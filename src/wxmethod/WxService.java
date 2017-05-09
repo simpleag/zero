@@ -8,7 +8,7 @@ import java.util.Map;
 
 import wxmodel.WxTag;
 import method.WxHttpMethod;
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;

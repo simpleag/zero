@@ -165,7 +165,7 @@ public class WechatController {
 						article.setTitle("查看我的课程");
 						article.setDescription("点此查看我的课程");
 						article.setPicUrl("");
-						article.setUrl("http://lalalaleo.com/wechat/wechat/schoolTimeTable.html?openid="+requestMap.get("openid")+"&class="+classid);
+						article.setUrl("http://lalalaleo.com/wechat/wechat/schoolTimeTable.html?openid="+requestMap.get("openid"));
 						articleList.add(article);
 						newsMessage.setArticleCount(articleList.size());
 						newsMessage.setArticles(articleList);

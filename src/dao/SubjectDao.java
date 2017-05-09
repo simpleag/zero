@@ -1,6 +1,6 @@
 package dao;
 
-import java.util.Iterator;
+import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -50,14 +50,41 @@ public class SubjectDao {
 			throw new Exception(ex);
 		}
 	}
-	
-	public Iterator<Subject> list() throws Exception{
+
+	public List<Subject> list() throws Exception{
 		try {
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
 			String hql = "from Subject";  
-	        Query query = session.createQuery(hql);  
-	        Iterator<Subject> subjectList = query.iterate();
+			Query query = session.createQuery(hql);  
+			List<Subject> subjectList = query.list();
+			session.getTransaction().commit();
+			return subjectList;
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
+	}
+
+	public Subject find (Subject subject) throws Exception{
+		try {
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			Subject subjectFind = (Subject) session.get(Subject.class, subject.getSubId());
+			session.getTransaction().commit();
+			return subjectFind;
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
+	}
+	
+	public List<Subject> listByTeaId(String subTeaId) throws Exception{
+		try {
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			String hql = "from Subject where subTeaId = ? ";  
+			Query query = session.createQuery(hql);  
+			query.setString(0, subTeaId);
+			List<Subject> subjectList = query.list();
 			session.getTransaction().commit();
 			return subjectList;
 		} catch (Exception ex) {

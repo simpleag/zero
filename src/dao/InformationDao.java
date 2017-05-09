@@ -1,6 +1,6 @@
 package dao;
 
-import java.util.Iterator;
+import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -51,13 +51,13 @@ public class InformationDao {
 		}
 	}
 	
-	public Iterator<Information> list() throws Exception{
+	public List<Information> list() throws Exception{
 		try {
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
 			String hql = "from Information";  
 	        Query query = session.createQuery(hql);  
-	        Iterator<Information> infoList = query.iterate();
+	        List<Information> infoList = query.list();
 			session.getTransaction().commit();
 			return infoList;
 		} catch (Exception ex) {

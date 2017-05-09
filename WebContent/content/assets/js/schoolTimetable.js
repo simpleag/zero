@@ -51,9 +51,11 @@ function getUrlData(){
     if((openid == null) || (openid == "")) goErrorPage();
     else{
         $.ajax({
-            url: "./content/assets/json/test_schoolTimetable.json",
-                type: "get",
-                data: "openid="+openid,
+            url: "clazztable.do",
+                type: "post",
+                data: {
+                	"openId": openid
+                	},
                 dataType: "JSON",
                 success: function(data) {
                                 loadSchoolTimeTablePage(data);

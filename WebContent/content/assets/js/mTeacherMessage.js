@@ -55,6 +55,7 @@ var classTools = {
                 data: {
                 	"openId": openid
                 	},
+
                 dataType: "JSON",
                 success: function(data) {
                                 classTools.setList(data);

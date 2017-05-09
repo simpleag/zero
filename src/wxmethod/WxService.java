@@ -2,14 +2,15 @@ package wxmethod;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import wxmodel.WxTag;
 import method.WxHttpMethod;
-import com.alibaba.fastjson.JSONObject;
 
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.ifp.wechat.util.WeixinUtil;
@@ -28,7 +29,7 @@ public class WxService {
 		tag1.setName(tagname);
 		jsonTab.put("tag",tag1);
 		System.out.println(jsonTab.toString());
-		String access_token = WeixinUtil.getAccessToken("wx7011496372902790", "22448b7ad7edf143d027144f378e2fe6").getToken();
+		String access_token = WxHttpMethod.getNAccessToken(new Date().getTime());
 		String result = WxHttpMethod.sendPost("https://api.weixin.qq.com/cgi-bin/tags/create?access_token="+access_token, jsonTab.toString());
 		return result;
 	}
@@ -39,7 +40,7 @@ public class WxService {
 		userSetTag.put("openid_list",userList );
 		userSetTag.put("tagid", tagid);
 		System.out.println(userSetTag.toString());
-		String access_token = WeixinUtil.getAccessToken("wx7011496372902790", "22448b7ad7edf143d027144f378e2fe6").getToken();
+		String access_token = WxHttpMethod.getNAccessToken(new Date().getTime());
 		String result = WxHttpMethod.sendPost("https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token="+access_token, userSetTag.toString());
 		return result;
 	}
@@ -50,7 +51,7 @@ public class WxService {
 		userSetTag.put("openid_list",userList );
 		userSetTag.put("tagid", tagid);
 		System.out.println(userSetTag.toString());
-		String access_token = WeixinUtil.getAccessToken("wx7011496372902790", "22448b7ad7edf143d027144f378e2fe6").getToken();
+		String access_token = WxHttpMethod.getNAccessToken(new Date().getTime());
 		String result = WxHttpMethod.sendPost("https://api.weixin.qq.com/cgi-bin/tags/members/batchuntagging?access_token="+access_token, userSetTag.toString());
 		return result;
 	}
@@ -72,7 +73,7 @@ public class WxService {
 		map3.put("articles",list);
 		root.put("news",map3);
 		System.out.println(JSON.toJSONString(root));
-		String access_token = WeixinUtil.getAccessToken("wx7011496372902790", "22448b7ad7edf143d027144f378e2fe6").getToken();
+		String access_token = WxHttpMethod.getNAccessToken(new Date().getTime());
 		String result = WxHttpMethod.sendPost("https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token="+access_token,JSON.toJSONString(root));
 		return result;
 	}

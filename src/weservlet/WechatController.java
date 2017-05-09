@@ -122,19 +122,20 @@ public class WechatController {
 						textMessage.setContent(respContent);
 						respMessage = MessageService.bulidSendMessage(textMessage,
 								ConstantWeChat.RESP_MESSAGE_TYPE_TEXT);
-					} else if (eventKey.equals("12")) {
-						Article article = new Article();
-						article.setTitle("鎴戞槸涓�鏉″崟鍥炬枃娑堟伅");
-						article.setDescription("鎴戞槸鎻忚堪淇℃伅");
-						article.setPicUrl("http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg");
-						article.setUrl("https://www.baidu.com/");
-						articleList.add(article);
-						newsMessage.setArticleCount(articleList.size());
-						newsMessage.setArticles(articleList);
-						respMessage = MessageService.bulidSendMessage(newsMessage,
-								ConstantWeChat.RESP_MESSAGE_TYPE_NEWS);
 					}else if (eventKey.equals("help") || eventKey.equals("teacherhelp1") || eventKey.equals("studenthelp")) {
-						
+						respContent = "此为帮助信息！\n";
+						/*-把文本内容放到了Content中具体为 <Content><![CDATA[内容]]></Content>-*/
+						StringBuffer contentMsg = new StringBuffer();
+						contentMsg.append("点击绑定后成为正式用户享受更多服务").append("\n\n");
+						contentMsg.append("教师功能包括：群发信息给学生、查看历史信息、查看作为教师的课程").append("\n");
+						contentMsg.append("学生功能包括：查看历史信息、查看课表、查看教师").append("\n");
+						contentMsg.append("教师群发信息后会自动推送给学生").append("\n");
+						contentMsg.append("查看信息会收到一个文字信息，点击后进入页面").append("\n");
+						/*-添加到回复中-*/
+						respContent = respContent + contentMsg.toString();
+						textMessage.setContent(respContent);
+						respMessage = MessageService.bulidSendMessage(textMessage,
+								ConstantWeChat.RESP_MESSAGE_TYPE_TEXT);
 					}else if(eventKey.equals("tacherg1")){
 						Article article = new Article();
 						article.setTitle("发送消息");
@@ -164,7 +165,7 @@ public class WechatController {
 						article.setTitle("查看我的课程");
 						article.setDescription("点此查看我的课程");
 						article.setPicUrl("");
-						article.setUrl("http://lalalaleo.com/wechat/wechat/class.html?openid="+requestMap.get("openid")+"&class="+classid);
+						article.setUrl("http://lalalaleo.com/wechat/wechat/schoolTimeTable.html?openid="+requestMap.get("openid")+"&class="+classid);
 						articleList.add(article);
 						newsMessage.setArticleCount(articleList.size());
 						newsMessage.setArticles(articleList);

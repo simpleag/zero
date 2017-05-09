@@ -1,9 +1,17 @@
 package wxmethod;
 
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import wxmodel.WxTag;
+import method.WxHttpMethod;
 import net.sf.json.JSONObject;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.ifp.wechat.util.WeixinUtil;
 
 public class WxService {
@@ -46,6 +54,28 @@ public class WxService {
 		System.out.println(userSetTag.toString());
 		String access_token = WeixinUtil.getAccessToken("wx7011496372902790", "22448b7ad7edf143d027144f378e2fe6").getToken();
 		String result = WxHttpMethod.sendPost("https://api.weixin.qq.com/cgi-bin/tags/members/batchuntagging?access_token="+access_token, userSetTag.toString());
+		return result;
+	}
+	/*发送服务信息 第一个参数为接收者id 第二个参数为news的标题 第三个参数为news的内容 url为跳转的url地址*/
+	public String SendCustomerServiceInfo(String openid,String title,String content,String url) {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		JSONObject map1 = new JSONObject(true);
+		map1.put("touser",openid);
+		map1.put("msgtype","news");
+		JSONObject map2 = new JSONObject(true);
+		map2.put("title",title);
+		map2.put("description",content);
+		map2.put("url", url);
+		map2.put("picurl","");
+		LinkedHashMap<String, Object> root1=JSON.parseObject(map2.toString(),new TypeReference<LinkedHashMap<String, Object>>(){});//关键的地方，转化为有序map
+		LinkedHashMap<String, Object> root=JSON.parseObject(map1.toString(),new TypeReference<LinkedHashMap<String, Object>>(){});//关键的地方，转化为有序map
+		JSONObject map3 = new JSONObject(true);
+		list.add(root1);
+		map3.put("articles",list);
+		root.put("news",map3);
+		System.out.println(JSON.toJSONString(root));
+		String access_token = WeixinUtil.getAccessToken("wx7011496372902790", "22448b7ad7edf143d027144f378e2fe6").getToken();
+		String result = WxHttpMethod.sendPost("https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token="+access_token,JSON.toJSONString(root));
 		return result;
 	}
 }

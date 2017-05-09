@@ -7,7 +7,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import method.MyService;
+
 import org.apache.log4j.Logger;
+
+import wxmethod.WxService;
 
 import com.ifp.wechat.constant.ConstantWeChat;
 import com.ifp.wechat.entity.message.resp.Article;
@@ -15,7 +19,9 @@ import com.ifp.wechat.entity.message.resp.NewsMessage;
 import com.ifp.wechat.entity.message.resp.TextMessage;
 import com.ifp.wechat.service.MessageService;
 import com.ifp.wechat.util.MessageUtil;
-
+/*
+ * 
+ * */
 public class WechatController {
 	public static Logger log = Logger.getLogger(WechatController.class); 
 
@@ -95,19 +101,17 @@ public class WechatController {
 			} else if (msgType.equals(ConstantWeChat.REQ_MESSAGE_TYPE_EVENT)) {
 				String eventType = requestMap.get("Event");
 				if (eventType.equals(ConstantWeChat.EVENT_TYPE_SUBSCRIBE)) {
-					respContent = "鍏虫敞娴嬭瘯锛乗n";
+					respContent = "欢迎关注微信号";
 					StringBuffer contentMsg = new StringBuffer();
-					contentMsg.append("鎮ㄨ繕鍙互鍥炲涓嬪垪鏁板瓧锛屼綋楠岀浉搴旀湇鍔�").append("\n\n");
-					contentMsg.append("1  鎴戝氨鏄釜娴嬭瘯鐨�").append("\n");
-					contentMsg.append("2  鎴戝暐閮芥湪鏈�").append("\n");
-					contentMsg.append("3  鎴戞槸澶氬浘鏂�").append("\n");
+					contentMsg.append("按帮助跳出帮助选项").append("\n\n");
+					contentMsg.append("绑定进行用户绑定").append("\n");
+					
 					respContent = respContent + contentMsg.toString();
 					textMessage.setContent(respContent);
 					respMessage = MessageService.bulidSendMessage(textMessage,
 							ConstantWeChat.RESP_MESSAGE_TYPE_TEXT);
 				} else if (eventType
 						.equals(ConstantWeChat.EVENT_TYPE_UNSUBSCRIBE)) {
-					respContent = "鍙栨秷鍏虫敞";
 					textMessage.setContent(respContent);
 					respMessage = MessageService.bulidSendMessage(textMessage,
 							ConstantWeChat.RESP_MESSAGE_TYPE_TEXT);
@@ -124,6 +128,92 @@ public class WechatController {
 						article.setDescription("鎴戞槸鎻忚堪淇℃伅");
 						article.setPicUrl("http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg");
 						article.setUrl("https://www.baidu.com/");
+						articleList.add(article);
+						newsMessage.setArticleCount(articleList.size());
+						newsMessage.setArticles(articleList);
+						respMessage = MessageService.bulidSendMessage(newsMessage,
+								ConstantWeChat.RESP_MESSAGE_TYPE_NEWS);
+					}else if (eventKey.equals("help") || eventKey.equals("teacherhelp1") || eventKey.equals("studenthelp")) {
+						
+					}else if(eventKey.equals("tacherg1")){
+						Article article = new Article();
+						article.setTitle("发送消息");
+						article.setDescription("点此进行消息发送");
+						article.setPicUrl("");
+						article.setUrl("http://lalalaleo.com/wechat/wechat/mTeacherMessage.html?openid="+requestMap.get("openid"));
+						articleList.add(article);
+						newsMessage.setArticleCount(articleList.size());
+						newsMessage.setArticles(articleList);
+						respMessage = MessageService.bulidSendMessage(newsMessage,
+								ConstantWeChat.RESP_MESSAGE_TYPE_NEWS);
+					}else if (eventKey.equals("teacherg2")) {
+						Article article = new Article();
+						article.setTitle("历史消息");
+						article.setDescription("点此进行查看历史消息");
+						article.setPicUrl("");
+						article.setUrl("");
+						articleList.add(article);
+						newsMessage.setArticleCount(articleList.size());
+						newsMessage.setArticles(articleList);
+						respMessage = MessageService.bulidSendMessage(newsMessage,
+								ConstantWeChat.RESP_MESSAGE_TYPE_NEWS);
+					}else if (eventKey.equals("teacherg3")) {
+						/*此处需要classid*/
+						String classid = new String();
+						Article article = new Article();
+						article.setTitle("查看我的课程");
+						article.setDescription("点此查看我的课程");
+						article.setPicUrl("");
+						article.setUrl("http://lalalaleo.com/wechat/wechat/class.html?openid="+requestMap.get("openid")+"&class="+classid);
+						articleList.add(article);
+						newsMessage.setArticleCount(articleList.size());
+						newsMessage.setArticles(articleList);
+						respMessage = MessageService.bulidSendMessage(newsMessage,
+								ConstantWeChat.RESP_MESSAGE_TYPE_NEWS);
+					}else if (eventKey.equals("student1")) {
+						String classid = new String();
+						Article article = new Article();
+						article.setTitle("查看历史信息");
+						article.setDescription("点此查看我的历史信息");
+						article.setPicUrl("");
+						article.setUrl("");
+						articleList.add(article);
+						newsMessage.setArticleCount(articleList.size());
+						newsMessage.setArticles(articleList);
+						respMessage = MessageService.bulidSendMessage(newsMessage,
+								ConstantWeChat.RESP_MESSAGE_TYPE_NEWS);
+					}else if (eventKey.equals("student2")) {
+						String classid = new String();
+						Article article = new Article();
+						article.setTitle("查看我的教师");
+						article.setDescription("点此查看我的教师");
+						article.setPicUrl("");
+						article.setUrl("http://lalalaleo.com/wechat/wechat/teacherList.html?openid="+requestMap.get("openid"));
+						articleList.add(article);
+						newsMessage.setArticleCount(articleList.size());
+						newsMessage.setArticles(articleList);
+						respMessage = MessageService.bulidSendMessage(newsMessage,
+								ConstantWeChat.RESP_MESSAGE_TYPE_NEWS);
+					}else if (eventKey.equals("student3")) {
+						String classid = new String();
+						Article article = new Article();
+						article.setTitle("查看我的课表");
+						article.setDescription("点此查看我的课表");
+						article.setPicUrl("");
+						article.setUrl("http://lalalaleo.com/wechat/wechat/schoolTimeTable.html?openid="+requestMap.get("openid"));
+						articleList.add(article);
+						newsMessage.setArticleCount(articleList.size());
+						newsMessage.setArticles(articleList);
+						respMessage = MessageService.bulidSendMessage(newsMessage,
+								ConstantWeChat.RESP_MESSAGE_TYPE_NEWS);
+					/*绑定 意添加openid*/
+					}else if (eventKey.equals("bind")) {
+						
+						Article article = new Article();
+						article.setTitle("绑定申请");
+						article.setDescription("点此进行绑定");
+						article.setPicUrl("");
+						article.setUrl("http://lalalaleo.com/wechat/wechat/binding.html?openid="+requestMap.get("openid"));
 						articleList.add(article);
 						newsMessage.setArticleCount(articleList.size());
 						newsMessage.setArticles(articleList);

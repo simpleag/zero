@@ -21,7 +21,7 @@ public class WxService {
 		String result = WxHttpMethod.sendPost("https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token="+access_token, jsonMenu);
 		return result;
 	}
-	/*根据输入的标签名创建用户标签*/
+	/*根据输入的标签名创建用户标签 tagname为标签名*/
 	public String createTag(String tagname) {
 		JSONObject jsonTab = new JSONObject();
 		WxTag tag1 = new WxTag();
@@ -32,7 +32,7 @@ public class WxService {
 		String result = WxHttpMethod.sendPost("https://api.weixin.qq.com/cgi-bin/tags/create?access_token="+access_token, jsonTab.toString());
 		return result;
 	}
-	/*设置用户的标签*/
+	/*设置用户的标签  tagid为标签id学生为109　老师为111*/
 	public String setUserTag(String useropenid,int tagid) {
 		JSONObject userSetTag = new JSONObject();
 		String[] userList = {useropenid};
@@ -43,7 +43,7 @@ public class WxService {
 		String result = WxHttpMethod.sendPost("https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token="+access_token, userSetTag.toString());
 		return result;
 	}
-	/*删除对应标签下的对用用户 因为用户可以用过多个标签 避免冲突*/
+	/*删除对应标签下的对用用户 因为用户可以用过多个标签 避免冲突 */
 	public String deletUserTag(String useropenid,int tagid) {
 		JSONObject userSetTag = new JSONObject();
 		String[] userList = { useropenid};

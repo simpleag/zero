@@ -17,7 +17,6 @@ import com.ifp.wechat.util.WeixinUtil;
 public class WxService {
 	/*根据输入的json格式字符串申请创建菜单 并返回菜单id或者错误信息*/
 	public String createMenu(String jsonMenu) {
-		//107:{"menuid":419897621} 0:{"menuid":419897636} 108：{"menuid":419897940}{"menuid":419897956}
 		String access_token = WeixinUtil.getAccessToken("wx7011496372902790", "22448b7ad7edf143d027144f378e2fe6").getToken();
 		String result = WxHttpMethod.sendPost("https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token="+access_token, jsonMenu);
 		return result;
@@ -26,7 +25,6 @@ public class WxService {
 	public String createTag(String tagname) {
 		JSONObject jsonTab = new JSONObject();
 		WxTag tag1 = new WxTag();
-		//Teachertest id:107 Studenttest id:108
 		tag1.setName(tagname);
 		jsonTab.put("tag",tag1);
 		System.out.println(jsonTab.toString());

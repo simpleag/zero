@@ -117,7 +117,7 @@ var studentTools = {
             url: "sendfindstudent.do",
                 type: "post",
                 data: {
-                	"claId": classid
+                	"claId": classTools.checked
                 	},
                 dataType: "JSON",
                 success: function(data) {

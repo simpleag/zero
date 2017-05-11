@@ -7,7 +7,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import wxmodel.WxTag;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSON;
@@ -29,9 +28,9 @@ public class WxService {
 	/*根据输入的标签名创建用户标签 tagname为标签名 并返回是否成功*/
 	public boolean createTag(String tagname) {
 		JSONObject jsonTab = new JSONObject();
-		WxTag tag1 = new WxTag();
-		tag1.setName(tagname);
-		jsonTab.put("tag",tag1);
+		JSONObject tag = new JSONObject();
+		tag.put("name",tagname);
+		jsonTab.put("tag",tag);
 		System.out.println(jsonTab.toString());
 		String access_token = WxHttpMethod.getNAccessToken(new Date().getTime());
 		String result = WxHttpMethod.sendPost("https://api.weixin.qq.com/cgi-bin/tags/create?access_token="+access_token, jsonTab.toString());
@@ -60,7 +59,7 @@ public class WxService {
 	}
 	/*删除对应标签下的对用用户 因为用户可以用过多个标签 避免冲突  并返回是否成功*/
 	public boolean deletUserTag(String useropenid,int tagid) {
-		JSONObject userSetTag = new JSONObject();
+		JSONObject userSetTag = new JSONObject(true);
 		String[] userList = { useropenid};
 		userSetTag.put("openid_list",userList );
 		userSetTag.put("tagid", tagid);
@@ -75,7 +74,7 @@ public class WxService {
 		}
 	}
 	/*发送服务信息 第一个参数为接收者id 第二个参数为news的标题 第三个参数为news的内容 url为跳转的url地址 并返回是否成功*/
-	public boolean SendCustomerServiceInfo(String openid,String title,String content,String url) {
+	public boolean sendCustomerServiceInfo(String openid,String title,String content,String url) {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		JSONObject map1 = new JSONObject(true);
 		map1.put("touser",openid);
@@ -85,8 +84,8 @@ public class WxService {
 		map2.put("description",content);
 		map2.put("url", url);
 		map2.put("picurl","");
-		LinkedHashMap<String, Object> root1=JSON.parseObject(map2.toString(),new TypeReference<LinkedHashMap<String, Object>>(){});//关键的地方，转化为有序map
-		LinkedHashMap<String, Object> root=JSON.parseObject(map1.toString(),new TypeReference<LinkedHashMap<String, Object>>(){});//关键的地方，转化为有序map
+		LinkedHashMap<String, Object> root1 = JSON.parseObject(map2.toString(),new TypeReference<LinkedHashMap<String, Object>>(){});//关键的地方，转化为有序map
+		LinkedHashMap<String, Object> root = JSON.parseObject(map1.toString(),new TypeReference<LinkedHashMap<String, Object>>(){});//关键的地方，转化为有序map
 		JSONObject map3 = new JSONObject(true);
 		list.add(root1);
 		map3.put("articles",list);
@@ -101,8 +100,11 @@ public class WxService {
 			return false;
 		}
 	}
-	/*发送模板信息 返回true为成功       用户id url(可为空 为空没有详细)first内容（可为空） teacher为老师名字  classname为课程 content为具体信息 并返回是否成功*/
-	public boolean SendTemplateInfo(String openid,String url,String first,String teacher,String classname,String content){
+	/**
+	 * 发送模板信息 返回true为成功       用户id url(可为空 为空没有详细)first内容（可为空） teacher为老师名字  classname为课程 content为具体信息 并返回是否成功
+	 * message为模板消息
+	 * */
+	public boolean sendTemplateInfo(String openid,String url,String first,String teacher,String classname,String content){
 		JSONObject message = new JSONObject(true);
 		message.put("touser",openid);
 		message.put("url",url);
@@ -124,7 +126,7 @@ public class WxService {
 		key.put("value", content);
 		key.put("color", "#000000");
 		data1.put("key3",key);
-		LinkedHashMap<String, Object> roottest=JSON.parseObject(message.toString(),new TypeReference<LinkedHashMap<String, Object>>(){});//关键的地方，转化为有序map
+		LinkedHashMap<String, Object> roottest = JSON.parseObject(message.toString(),new TypeReference<LinkedHashMap<String, Object>>(){});//关键的地方，转化为有序map
 		roottest.put("data",data1);
 		System.out.println(JSON.toJSONString(roottest));
 		String access_token = WxHttpMethod.getNAccessToken(new Date().getTime());

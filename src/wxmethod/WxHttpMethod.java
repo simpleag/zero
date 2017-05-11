@@ -13,7 +13,13 @@ import java.util.Map;
 
 import com.ifp.wechat.entity.AccessToken;
 import com.ifp.wechat.util.WeixinUtil;
-
+/**
+ * acessToken 保存微信的Acess_Token 用以进行操作
+ * lastAccessTokenEndTime 上一次申请AcessToken的时间
+ * expireTime 设置一个Acess_Token的保存时间 时间为2000秒 微信Acess_Token保存时间最长为7200秒 避免极限设置为2000秒
+ * 获取lastAcessTokenEndTime时自动加上保存时间 
+ * getNAccessToken(当前时间) 判断之前申请Access_Token是否过期 若过期或者不存在就取新的 
+ */
 public class WxHttpMethod {
 	private static String acessToken = "";
 	private static Long lastAccessTokenEndTime = (long) 0;
@@ -36,7 +42,7 @@ public class WxHttpMethod {
 			AccessToken ac = WeixinUtil.getAccessToken("wx7011496372902790", "22448b7ad7edf143d027144f378e2fe6");
 			access_token = ac.getToken();
 			WxHttpMethod.setAcessToken(ac.getToken());
-			WxHttpMethod.setLastAccessTokenEndTime(ac.getExpiresIn()+nowtime);
+			WxHttpMethod.setLastAccessTokenEndTime(nowtime);
 			
 		}else{
 			access_token = WxHttpMethod.getAcessToken();
